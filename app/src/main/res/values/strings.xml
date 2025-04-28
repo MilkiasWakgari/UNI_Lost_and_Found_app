@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UNI_Lost_and_Found_app</string>
+    <string name="welcome_title">Welcome</string>
+    <string name="welcome_subtitle">Lets get started</string>
+    <string name="welcome_prompt">Existing customer / Get started</string>
+    <string name="welcome_sign_in">Sign in</string>
+    <string name="welcome_new_customer">New customer?</string>
+    <string name="welcome_create_new_account">Create New Account</string>
+</resources>
