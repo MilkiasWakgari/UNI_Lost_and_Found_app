@@ -1,3 +1,10 @@
+/**
+ * This file contains the WelcomeScreen Composable,
+ * which is the first screen the user sees.
+ * It shows welcome text, a sign-in button, and a create-account prompt.
+ */
+package com.example.uni_lost_and_found_app.ui.screens.auth
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -6,15 +13,11 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -23,9 +26,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uni_lost_and_found_app.R
+import com.example.uni_lost_and_found_app.ui.components.SignInButton
 
 @Composable
-fun WelcomeScreen() {
+fun WelcomeScreen(
+    onSignInClick: () -> Unit = {}
+) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -53,25 +59,13 @@ fun WelcomeScreen() {
         Text(
             text = stringResource(id = R.string.welcome_prompt),
             modifier = Modifier.fillMaxWidth(),
-            style = MaterialTheme.typography.bodySmall.copy(fontFamily = customFontFamily)
+            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily)
         )
         Spacer(Modifier.height(13.dp))
-        Button(
-            onClick = {},
-            colors = ButtonDefaults.buttonColors(
-                containerColor = colorResource(R.color.charcoal_color)
-            ),
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(48.dp),
-            shape = RoundedCornerShape(8.dp)
-        ) {
-            Text(
-                text = stringResource(id = R.string.welcome_sign_in),
-                color = Color.White,
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = customFontFamily)
-            )
-        }
+        SignInButton(
+            text = "Sign in",
+            onClick = { onSignInClick() }
+        )
         Spacer(Modifier.height(27.dp))
         Row(
             horizontalArrangement = Arrangement.spacedBy(10.dp),
@@ -79,7 +73,7 @@ fun WelcomeScreen() {
         ){
             Text(
                 text = stringResource(id = R.string.welcome_new_customer),
-                style = MaterialTheme.typography.bodySmall.copy(fontFamily = customFontFamily)
+                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily)
             )
             Text(
                 text = stringResource(id = R.string.welcome_create_new_account),
