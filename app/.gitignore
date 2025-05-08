@@ -1,1 +1,8 @@
-/build
+# IntelliJ / Android Studio
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+build/
+captures/
