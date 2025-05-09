@@ -8,9 +8,9 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.uni_lost_and_found_app.ui.components.BottomNavigationBar
-import com.example.uni_lost_and_found_app.ui.components.CustomTopAppBar
-import com.example.uni_lost_and_found_app.ui.components.ItemSelection
+import com.example.uni_lost_and_found_app.core.presentation.components.BottomNavigationBar
+import com.example.uni_lost_and_found_app.core.presentation.components.CustomTopAppBar
+import com.example.uni_lost_and_found_app.core.presentation.components.ItemSelection
 
 @Composable
 fun ItemScreen(title: String) {

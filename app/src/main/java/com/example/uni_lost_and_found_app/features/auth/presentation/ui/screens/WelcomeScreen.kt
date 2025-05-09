@@ -26,7 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uni_lost_and_found_app.R
-import com.example.uni_lost_and_found_app.ui.components.SignInButton
+import com.example.uni_lost_and_found_app.core.presentation.components.SignInButton
 
 @Composable
 fun WelcomeScreen(
