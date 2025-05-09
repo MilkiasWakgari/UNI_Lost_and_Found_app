@@ -2,4 +2,6 @@
 <resources>
     <color name="deep_sky_blue">#1A86E6</color>
     <color name="charcoal_color">#363E51</color>
+    <color name="white_smoke"> #F5F5F5</color>
+    <color name="items_background">#95b7ed</color>
 </resources>

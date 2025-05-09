@@ -1,4 +1,4 @@
-package com.example.uni_lost_and_found_app.ui.components
+package com.example.uni_lost_and_found_app.core.presentation.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -32,16 +32,16 @@ fun ItemCard(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(colorResource(id = R.color.secondary)) // Light blue
+            .background(colorResource(id = R.color.items_background))
             .padding(8.dp)
     ) {
         Image(
-            painter = painterResource(id = R.drawable.pinterest_blue_bicycle), // Replace with your image resource
+            painter = painterResource(id = R.drawable.blue_bicycle),
             contentDescription = title,
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .height(120.dp) // Or adjust based on your layout
+                .height(120.dp)
                 .clip(RoundedCornerShape(16.dp))
         )
 

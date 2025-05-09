@@ -10,7 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.uni_lost_and_found_app.ui.components.*
+import com.example.uni_lost_and_found_app.core.presentation.components.*
 
 @Composable
 fun ItemsFoundScreen() {

@@ -4,6 +4,9 @@
     <string name="welcome_subtitle">Lets get started</string>
     <string name="welcome_prompt">Existing customer / Get started</string>
     <string name="welcome_sign_in">Sign in</string>
+    <string name="agree_to_terms">Agree to terms and privacy policy.</string>
     <string name="welcome_new_customer">New customer?</string>
     <string name="welcome_create_new_account">Create New Account</string>
+    <string name="forgot_password">Forgot Password</string>
+    <string name="forgot_password_subtitle">Enter your email for the verification process, we will send code to your email</string>
 </resources>
