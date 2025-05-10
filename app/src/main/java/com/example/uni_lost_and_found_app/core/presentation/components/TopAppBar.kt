@@ -1,4 +1,4 @@
-package com.example.uni_lost_and_found_app.ui.components
+package com.example.uni_lost_and_found_app.core.presentation.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
