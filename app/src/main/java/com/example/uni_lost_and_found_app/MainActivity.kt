@@ -3,6 +3,8 @@ package com.example.uni_lost_and_found_app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import com.example.uni_lost_and_found_app.features.chat.ui.ChatScreen
+import com.example.uni_lost_and_found_app.features.item.ReportItemFoundScreen
 import com.example.uni_lost_and_found_app.ui.screens.auth.EnterCodeScreen
 import com.example.uni_lost_and_found_app.ui.screens.auth.ForgotPasswordScreen
 import com.example.uni_lost_and_found_app.ui.screens.auth.SignInScreen
@@ -16,7 +18,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ItemsFoundScreen()
+            ReportItemFoundScreen()
         }
     }
 }
