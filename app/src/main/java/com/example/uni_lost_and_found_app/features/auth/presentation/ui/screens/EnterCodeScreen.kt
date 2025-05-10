@@ -1,4 +1,4 @@
-package com.example.uni_lost_and_found_app.ui.screens.auth
+package com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

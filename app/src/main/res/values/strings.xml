@@ -1,9 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">UNI_Lost_and_Found_app</string>
-    <string name="welcome_title">Welcome</string>
-    <string name="welcome_subtitle">Lets get started</string>
-    <string name="welcome_prompt">Existing customer / Get started</string>
-    <string name="welcome_sign_in">Sign in</string>
-    <string name="welcome_new_customer">New customer?</string>
-    <string name="welcome_create_new_account">Create New Account</string>
+    <!-- Welcome Screen -->
+    <string name="welcome_title">Welcome to UNI Lost and Found</string>
+    <string name="welcome_subtitle">Find your lost items or help others find theirs</string>
+    <string name="welcome_prompt">Already have an account?</string>
+    <string name="welcome_new_customer">New to UNI Lost and Found?</string>
+    <string name="welcome_create_new_account">Create an account</string>
+
+    <!-- Sign In Screen -->
+    <string name="sign_in_title">Sign in</string>
+    <string name="sign_in_subtitle">Please log in into your account</string>
+    <string name="sign_in_email_hint">Email</string>
+    <string name="sign_in_password_hint">Password</string>
+    <string name="sign_in_button">Sign In</string>
+    <string name="sign_in_forgot_password">Forgot password?</string>
+
+    <!-- Sign Up Screen -->
+    <string name="sign_up_title">Create Account</string>
+    <string name="sign_up_subtitle">Please fill in your details</string>
+    <string name="sign_up_name_hint">Full Name</string>
+    <string name="sign_up_email_hint">Email</string>
+    <string name="sign_up_password_hint">Password</string>
+    <string name="sign_up_confirm_password_hint">Confirm Password</string>
+    <string name="sign_up_button">Create Account</string>
+    <string name="sign_up_already_have_account">Already have an account?</string>
+    <string name="sign_up_sign_in">Sign in</string>
+
+    <!-- Forgot Password Screen -->
+    <string name="forgot_password_title">Forgot Password</string>
+    <string name="forgot_password_subtitle">Enter your email to reset your password</string>
+    <string name="forgot_password_email_hint">Email</string>
+    <string name="forgot_password_button">Send Reset Link</string>
+    <string name="forgot_password_back">Back to Sign In</string>
+
+    <!-- Enter Code Screen -->
+    <string name="enter_code_title">Enter Code</string>
+    <string name="enter_code_subtitle">Please enter the verification code sent to your email</string>
+    <string name="enter_code_hint">Verification Code</string>
+    <string name="enter_code_button">Verify</string>
+    <string name="enter_code_resend">Resend Code</string>
 </resources>

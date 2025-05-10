@@ -1,10 +1,6 @@
-/**
- * This file contains the WelcomeScreen Composable,
- * which is the first screen the user sees.
- * It shows welcome text, a sign-in button, and a create-account prompt.
- */
-package com.example.uni_lost_and_found_app.ui.screens.auth
+package com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -26,11 +22,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uni_lost_and_found_app.R
-import com.example.uni_lost_and_found_app.ui.components.SignInButton
+import com.example.uni_lost_and_found_app.core.presentation.components.SignInButton
 
 @Composable
 fun WelcomeScreen(
-    onSignInClick: () -> Unit = {}
+    onSignInClick: () -> Unit = {},
+    onSignUpClick: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
@@ -38,7 +35,7 @@ fun WelcomeScreen(
             .padding(top = 134.dp, start = 20.dp, end = 20.dp)
     ) {
         val customFontFamily = FontFamily(
-            Font(R.font.plus_jakarta_sans_medium)
+            Font(R.font.plus_jakarta_sans_medium) // Updated to use the correct font file
         )
         Text(
             text = stringResource(id = R.string.welcome_title),
@@ -63,8 +60,8 @@ fun WelcomeScreen(
         )
         Spacer(Modifier.height(13.dp))
         SignInButton(
-            text = "Sign in",
-            onClick = { onSignInClick() }
+            text = stringResource(id = R.string.sign_in_button),
+            onClick = onSignInClick
         )
         Spacer(Modifier.height(27.dp))
         Row(
@@ -78,7 +75,8 @@ fun WelcomeScreen(
             Text(
                 text = stringResource(id = R.string.welcome_create_new_account),
                 fontWeight = FontWeight.Bold,
-                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily)
+                style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily),
+                modifier = Modifier.clickable(onClick = onSignUpClick)
             )
         }
     }

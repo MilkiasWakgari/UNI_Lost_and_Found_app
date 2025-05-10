@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.uni_lost_and_found_app.core.presentation.components.ItemCard
 
 @Composable
 fun ItemSelection(

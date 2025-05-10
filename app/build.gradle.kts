@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.implementation
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -56,4 +58,12 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    implementation("androidx.navigation:navigation-compose:2.9.0")
+    implementation("androidx.compose.material:material-icons-extended")
+    implementation("androidx.compose.material3:material3:1.1.0") // or the latest version
+    implementation("androidx.compose.material:material-icons-extended:1.4.3") // or the latest version
+    implementation("androidx.compose.ui:ui:1.4.3") // Make sure it's compatible with your version
+    implementation("androidx.compose.foundation:foundation:1.4.3") // Similarly, make sure version is correct
+
+
 }
