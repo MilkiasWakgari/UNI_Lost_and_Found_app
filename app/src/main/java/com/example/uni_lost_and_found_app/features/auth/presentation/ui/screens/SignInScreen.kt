@@ -40,18 +40,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.uni_lost_and_found_app.R
 import com.example.uni_lost_and_found_app.core.presentation.components.SignInButton
+import androidx.navigation.NavController
 
 @Composable
 fun SignInScreen(
     onBack: () -> Unit = {},
     onForgotPassword: () -> Unit = {},
-    onSignInSuccess: () -> Unit = {}
+    onSignInSuccess: () -> Unit = {},
+    navController: NavController
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     val customFontFamily = FontFamily(
-        Font(R.font.plus_jakarta_sans_medium) // Updated to use the correct font file
+        Font(R.font.plus_jakarta_sans_medium)
     )
     val isEmailValid = email.contains("@") && email.contains(".")
 
@@ -88,7 +90,6 @@ fun SignInScreen(
             style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily)
         )
 
-        // Email Field
         OutlinedTextField(
             value = email,
             onValueChange = { email = it },
@@ -111,7 +112,6 @@ fun SignInScreen(
                 .padding(bottom = 16.dp)
         )
 
-        // Password Field
         OutlinedTextField(
             value = password,
             onValueChange = { password = it },
@@ -138,15 +138,22 @@ fun SignInScreen(
             horizontalArrangement = Arrangement.End
         ) {
             Text(
-                text = stringResource(id = R.string.sign_in_forgot_password),
-                fontSize = 16.sp,
+                text = stringResource(id = R.string.forgot_password),
+                color = colorResource(id = R.color.deep_sky_blue),
                 modifier = Modifier.clickable(onClick = onForgotPassword)
             )
         }
-        Spacer(Modifier.height(16.dp))
+        Spacer(Modifier.height(24.dp))
         SignInButton(
-            text = stringResource(id = R.string.sign_in_button),
-            onClick = onSignInSuccess
+            text = stringResource(id = R.string.sign_in),
+            onClick = {
+                // Simulate login and check for admin role
+                if (email == "admin@example.com") {
+                    navController.navigate("admin_dashboard")
+                } else {
+                    onSignInSuccess()
+                }
+            }
         )
     }
 }

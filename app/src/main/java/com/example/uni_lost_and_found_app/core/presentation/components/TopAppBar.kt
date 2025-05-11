@@ -18,7 +18,7 @@ import com.example.uni_lost_and_found_app.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomTopAppBar(title: String) {
+fun CustomTopAppBar(title: String, onBackClick: () -> Unit) {
     val customFontFamily = FontFamily(Font(R.font.plus_jakarta_sans_medium))
 
     TopAppBar(

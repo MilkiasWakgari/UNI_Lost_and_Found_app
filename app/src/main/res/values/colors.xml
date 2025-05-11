@@ -24,4 +24,6 @@
     <color name="divider">#E0E0E0</color>
     <color name="secondary">#ADD8E6</color> <!-- Light blue -->
     <color name="charcoal_color">#36454F</color>
+    <color name="items_background">#E0F7FA</color> <!-- Light blue example -->
+
 </resources>

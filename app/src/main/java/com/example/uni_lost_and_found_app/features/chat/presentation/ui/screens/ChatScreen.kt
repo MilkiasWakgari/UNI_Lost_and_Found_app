@@ -21,7 +21,11 @@ import com.example.uni_lost_and_found_app.core.presentation.components.BottomNav
 import com.example.uni_lost_and_found_app.core.presentation.components.CustomTopAppBar
 
 @Composable
-fun ChatScreen() {
+fun ChatScreen(
+    onBack: () -> Unit = {},
+    currentRoute: String = "",
+    onNavigate: (String) -> Unit = {}
+) {
     val messages = listOf(
         Triple("Kevin", "Hey, I found your notebook!", "7:01"),
         Triple("Kevin", "You can collect it at the lost and found office.", "7:03"),
@@ -29,8 +33,8 @@ fun ChatScreen() {
     )
 
     Scaffold(
-        topBar = { CustomTopAppBar(title = "Messages") },
-        bottomBar = { BottomNavigationBar() }
+        topBar = { CustomTopAppBar(title = "Messages", onBackClick = onBack) },
+        bottomBar = { BottomNavigationBar(currentRoute = currentRoute, onNavigate = onNavigate) }
     ) { padding ->
         Column(
             modifier = Modifier

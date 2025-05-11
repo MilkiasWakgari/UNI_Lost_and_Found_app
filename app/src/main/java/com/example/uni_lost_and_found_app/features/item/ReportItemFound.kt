@@ -1,98 +1,145 @@
 package com.example.uni_lost_and_found_app.features.item
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.uni_lost_and_found_app.R
 import com.example.uni_lost_and_found_app.core.presentation.components.BottomNavigationBar
 import com.example.uni_lost_and_found_app.core.presentation.components.CustomTopAppBar
+import com.example.uni_lost_and_found_app.features.item.data.repository.ItemRepository
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ReportItemFoundScreen() {
+fun ReportItemFoundScreen(
+    onNavigate: (String) -> Unit,
+    itemRepository: ItemRepository
+) {
+    var title by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var location by remember { mutableStateOf("") }
+    var category by remember { mutableStateOf("") }
+    var isLoading by remember { mutableStateOf(false) }
+    var error by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+
     Scaffold(
-        topBar = { CustomTopAppBar(title = "REPORT ITEM") },
-        bottomBar = { BottomNavigationBar() }
+        topBar = {
+            CustomTopAppBar(
+                title = "REPORT FOUND ITEM",
+                onBackClick = { onNavigate("items_found") }
+            )
+        },
+        bottomBar = { 
+            BottomNavigationBar(
+                currentRoute = "report_item_found",
+                onNavigate = onNavigate
+            ) 
+        }
     ) { padding ->
         Column(
             modifier = Modifier
                 .padding(padding)
+                .padding(16.dp)
                 .fillMaxSize()
-                .padding(horizontal = 24.dp, vertical = 16.dp)
         ) {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                FoundLostToggle(isFoundSelected = true)
-            }
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            InputField(label = "Item Name", value = "Bag")
-            Spacer(modifier = Modifier.height(16.dp))
-
-            InputField(label = "Location", value = "Room 211")
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text("Time", fontSize = 12.sp, color = Color.Black)
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier.padding(top = 4.dp)
-            ) {
-                Text(
-                    text = "04 APR 2025",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = (-0.3).sp
-                )
-                Spacer(modifier = Modifier.width(26.dp))
-                Text(
-                    text = "7:01 AM",
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    letterSpacing = (-0.3).sp
-                )
-            }
-
-            Spacer(modifier = Modifier.height(16.dp))
-            InputField(label = "Description", value = "-")
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text("Picture", fontSize = 12.sp, color = Color.Black)
-            Spacer(modifier = Modifier.height(8.dp))
-            Image(
-                painter = painterResource(id = R.drawable.image2),
-                contentDescription = "Item Image",
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(180.dp)
-                    .clip(RoundedCornerShape(12.dp))
+            OutlinedTextField(
+                value = title,
+                onValueChange = { title = it },
+                label = { Text("Item Name") },
+                modifier = Modifier.fillMaxWidth()
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = description,
+                onValueChange = { description = it },
+                label = { Text("Description") },
+                modifier = Modifier.fillMaxWidth(),
+                minLines = 3
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            OutlinedTextField(
+                value = location,
+                onValueChange = { location = it },
+                label = { Text("Location Found") },
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            ExposedDropdownMenuBox(
+                expanded = false,
+                onExpandedChange = { }
+            ) {
+                OutlinedTextField(
+                    value = category,
+                    onValueChange = { category = it },
+                    label = { Text("Category") },
+                    modifier = Modifier.fillMaxWidth(),
+                    readOnly = true
+                )
+            }
 
             Spacer(modifier = Modifier.height(24.dp))
 
-            Row(
+            Button(
+                onClick = {
+                    scope.launch {
+                        isLoading = true
+                        error = null
+                        try {
+                            val result = itemRepository.createItem(
+                                title = title,
+                                description = description,
+                                location = location,
+                                category = category
+                            )
+                            result.onSuccess {
+                                onNavigate("items_found")
+                            }.onFailure { e ->
+                                error = e.message
+                            }
+                        } catch (e: Exception) {
+                            error = e.message
+                        } finally {
+                            isLoading = false
+                        }
+                    }
+                },
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                enabled = !isLoading && title.isNotBlank() && description.isNotBlank() && 
+                         location.isNotBlank() && category.isNotBlank()
             ) {
-                ActionButton(text = "Cancel", backgroundColor = Color.Gray)
-                ActionButton(text = "Confirm", backgroundColor = Color(0xff124a7d))
+                if (isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                } else {
+                    Text("Submit")
+                }
+            }
+
+            if (error != null) {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = error!!,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.bodyMedium
+                )
             }
         }
     }

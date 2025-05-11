@@ -1,30 +1,73 @@
-package com.example.uni_lost_and_found_app.ui.screens
+package com.example.uni_lost_and_found_app.features.item
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.uni_lost_and_found_app.core.presentation.components.BottomNavigationBar
 import com.example.uni_lost_and_found_app.core.presentation.components.CustomTopAppBar
 import com.example.uni_lost_and_found_app.core.presentation.components.ItemSelection
+import com.example.uni_lost_and_found_app.features.item.data.model.Item
+import com.example.uni_lost_and_found_app.features.item.data.repository.ItemRepository
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 @Composable
-fun ItemScreen(title: String) {
-    val todayItems = listOf("Bicycle" to "11:23", "Laptop" to "11:25")
-    val last7DaysItems = listOf(
-        Triple("Road Bike", "Mar 10, 2023", "23:44"),
-        Triple("Helmet", "Mar 3, 2023", "10:45"),
-        Triple("Water Bottle", "Mar 1, 2023", "14:00"),
-        Triple("Mountain Bike", "Feb 27, 2023", "16:20")
-    )
+fun ItemsScreen(
+    title: String,
+    currentRoute: String,
+    itemRepository: ItemRepository,
+    onNavigate: (String) -> Unit
+) {
+    var todayItems by remember { mutableStateOf<List<Item>>(emptyList()) }
+    var last7DaysItems by remember { mutableStateOf<List<Item>>(emptyList()) }
+    var isLoading by remember { mutableStateOf(true) }
+    var error by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            try {
+                val todayResult = itemRepository.getTodayItems()
+                val recentResult = itemRepository.getRecentItems()
+                
+                todayResult.onSuccess { items ->
+                    todayItems = items
+                }.onFailure { e ->
+                    error = e.message
+                }
+
+                recentResult.onSuccess { items ->
+                    last7DaysItems = items
+                }.onFailure { e ->
+                    error = e.message
+                }
+            } catch (e: Exception) {
+                error = e.message
+            } finally {
+                isLoading = false
+            }
+        }
+    }
 
     Scaffold(
-        topBar = { CustomTopAppBar(title = title) },
-        bottomBar = { BottomNavigationBar() }
+        topBar = { 
+            CustomTopAppBar(
+                title = title,
+                onBackClick = { onNavigate("welcome") }
+            ) 
+        },
+        bottomBar = { 
+            BottomNavigationBar(
+                currentRoute = currentRoute,
+                onNavigate = onNavigate
+            ) 
+        }
     ) { padding ->
         Column(
             modifier = Modifier
@@ -32,7 +75,28 @@ fun ItemScreen(title: String) {
                 .padding(16.dp)
                 .verticalScroll(rememberScrollState())
         ) {
-            ItemSelection(todayItems = todayItems, last7DaysItems = last7DaysItems)
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            } else if (error != null) {
+                Text(
+                    text = error!!,
+                    color = MaterialTheme.colorScheme.error,
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                )
+            } else {
+                ItemSelection(
+                    todayItems = todayItems.map { it.title to it.timeFound },
+                    last7DaysItems = last7DaysItems.map { 
+                        Triple(
+                            it.title,
+                            SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(it.dateFound),
+                            it.timeFound
+                        )
+                    }
+                )
+            }
         }
     }
 }
