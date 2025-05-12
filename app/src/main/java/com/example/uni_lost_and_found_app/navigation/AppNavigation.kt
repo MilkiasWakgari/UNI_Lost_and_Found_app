@@ -13,8 +13,9 @@ import com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens.
 import com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens.EnterCodeScreen
 import com.example.uni_lost_and_found_app.features.item.presentation.ui.ItemsScreen
 import com.example.uni_lost_and_found_app.features.item.presentation.ui.ItemsLostScreen
-import com.example.uni_lost_and_found_app.features.item.ReportItemFoundScreen
+import com.example.uni_lost_and_found_app.features.item.presentation.ui.ReportItemFoundScreen
 import com.example.uni_lost_and_found_app.features.item.data.repository.ItemRepository
+import com.example.uni_lost_and_found_app.features.chat.data.repository.ChatRepository
 // import com.example.uni_lost_and_found_app.features.chat.presentation.ChatListScreen
 // import com.example.uni_lost_and_found_app.features.chat.presentation.ChatDetailScreen
 // import com.example.uni_lost_and_found_app.features.chat.data.repository.ChatRepository
@@ -23,7 +24,7 @@ import com.example.uni_lost_and_found_app.features.item.data.repository.ItemRepo
 fun AppNavigation(
     navController: NavHostController,
     itemRepository: ItemRepository,
-    // chatRepository: ChatRepository,
+    chatRepository: ChatRepository,
     adminViewModel: AdminViewModel,
     token: String
 ) {
@@ -79,7 +80,7 @@ fun AppNavigation(
         }
         composable("report_item_found") {
             ReportItemFoundScreen(
-                onNavigate = { route -> navController.navigate(route) },
+                onNavigate = { route: String -> navController.navigate(route) },
                 itemRepository = itemRepository
             )
         }
