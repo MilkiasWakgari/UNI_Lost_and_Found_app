@@ -57,7 +57,7 @@ This application aims to provide a seamless experience with the following beginn
 
 1.  **Clone the repository:**
     ```bash
-    git clone [https://github.com/Dagii8048/UNI_Lost_and_Found_app.git](https://github.com/Dagii8048/UNI_Lost_and_Found_app.git)
+    git clone https://github.com/MilkiasWakgari/UNI_Lost_and_Found_app.git
     ```
 2.  **Open in Android Studio:** Open the cloned project in Android Studio.
 3.  **Build and Run:** Build the project and run it on an emulator or a physical Android device.
