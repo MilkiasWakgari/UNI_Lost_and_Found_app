@@ -30,7 +30,7 @@ fun ItemCard(
     Column(
         modifier = modifier
             .clip(RoundedCornerShape(16.dp))
-            .background(colorResource(id = R.color.items_background))
+            .background(colorResource(id = R.color.charcoal_color))
             .padding(8.dp)
     ) {
         Image(
