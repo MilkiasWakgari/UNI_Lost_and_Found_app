@@ -22,10 +22,24 @@ import com.example.uni_lost_and_found_app.core.presentation.components.BottomNav
 import com.example.uni_lost_and_found_app.core.presentation.components.CustomTopAppBar
 
 @Composable
-fun ItemDetailsFoundScreen() {
+fun ItemDetailsFoundScreen(
+    currentRoute: String = "item_details",
+    onNavigate: (String) -> Unit,
+    onBackClick: () -> Unit
+) {
     Scaffold(
-        topBar = { CustomTopAppBar(title = "ITEM DETAILS") },
-        bottomBar = { BottomNavigationBar() }
+        topBar = { 
+            CustomTopAppBar(
+                title = "ITEM DETAILS",
+                onBackClick = onBackClick
+            ) 
+        },
+        bottomBar = { 
+            BottomNavigationBar(
+                currentRoute = currentRoute,
+                onNavigate = onNavigate
+            ) 
+        }
     ) { padding ->
         Column(
             modifier = Modifier
