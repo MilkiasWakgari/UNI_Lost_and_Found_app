@@ -24,6 +24,7 @@ import com.example.uni_lost_and_found_app.R
 import com.example.uni_lost_and_found_app.core.presentation.components.SignInButton
 import com.example.uni_lost_and_found_app.features.auth.data.api.AuthApi
 import com.example.uni_lost_and_found_app.features.auth.data.api.LoginRequest
+import com.example.uni_lost_and_found_app.features.auth.data.TokenManager
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,7 +34,8 @@ fun SignInScreen(
     onForgotPassword: () -> Unit = {},
     onSignInSuccess: () -> Unit = {},
     navController: NavController,
-    authApi: AuthApi
+    authApi: AuthApi,
+    tokenManager: TokenManager
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -167,7 +169,10 @@ fun SignInScreen(
                         val response = authApi.login(LoginRequest(email, password))
                         if (response.isSuccessful) {
                             response.body()?.let { loginResponse ->
-                                // Store the token and user info
+                                // Save the token
+                                tokenManager.saveToken(loginResponse.token)
+                                
+                                // Navigate based on role
                                 if (loginResponse.role == "ADMIN") {
                                     navController.navigate("admin_dashboard")
                                 } else {
