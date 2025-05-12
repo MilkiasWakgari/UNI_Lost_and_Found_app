@@ -20,10 +20,25 @@ import com.example.uni_lost_and_found_app.core.presentation.components.BottomNav
 import com.example.uni_lost_and_found_app.core.presentation.components.CustomTopAppBar
 
 @Composable
-fun DeleteAccount(modifier: Modifier = Modifier) {
+fun DeleteAccount(
+    modifier: Modifier = Modifier,
+    currentRoute: String = "delete_account",
+    onNavigate: (String) -> Unit,
+    onBackClick: () -> Unit
+) {
     Scaffold(
-        topBar = { CustomTopAppBar(title = "DELETE ACCOUNT") },
-        bottomBar = { BottomNavigationBar() }
+        topBar = { 
+            CustomTopAppBar(
+                title = "DELETE ACCOUNT",
+                onBackClick = onBackClick
+            ) 
+        },
+        bottomBar = { 
+            BottomNavigationBar(
+                currentRoute = currentRoute,
+                onNavigate = onNavigate
+            ) 
+        }
     ) { padding ->
         Box(
             modifier = modifier
@@ -75,7 +90,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
 
                 // Cancel Button
                 TextButton(
-                    onClick = { /* Handle cancel */ },
+                    onClick = onBackClick,
                     colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
@@ -116,5 +131,8 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
 @Preview(widthDp = 393, heightDp = 852)
 @Composable
 private fun DeleteAccountPreview() {
-    DeleteAccount()
+    DeleteAccount(
+        onNavigate = { },
+        onBackClick = { }
+    )
 }
