@@ -1,3 +1,4 @@
+import org.gradle.kotlin.dsl.debugImplementation
 import org.gradle.kotlin.dsl.implementation
 
 plugins {
@@ -21,7 +22,6 @@ android {
             useSupportLibrary = true
         }
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false

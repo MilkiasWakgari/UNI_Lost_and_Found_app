@@ -87,12 +87,12 @@ fun ItemsScreen(
                 )
             } else {
                 ItemSelection(
-                    todayItems = todayItems.map { it.title to it.timeFound },
+                    todayItems = todayItems.map { it.title to SimpleDateFormat("HH:mm", Locale.getDefault()).format(it.date) },
                     last7DaysItems = last7DaysItems.map { 
                         Triple(
                             it.title,
-                            SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(it.dateFound),
-                            it.timeFound
+                            SimpleDateFormat("MMM dd, yyyy", Locale.getDefault()).format(it.date),
+                            SimpleDateFormat("HH:mm", Locale.getDefault()).format(it.date)
                         )
                     }
                 )

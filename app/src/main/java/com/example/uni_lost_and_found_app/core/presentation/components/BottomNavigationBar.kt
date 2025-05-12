@@ -40,5 +40,11 @@ fun BottomNavigationBar(
             selected = currentRoute == "chats",
             onClick = { onNavigate("chats") }
         )
+        NavigationBarItem(
+            icon = { Icon(Icons.Default.Person, contentDescription = "Profile") },
+            label = { Text("Profile") },
+            selected = currentRoute == "profile",
+            onClick = { onNavigate("profile") }
+        )
     }
 }
