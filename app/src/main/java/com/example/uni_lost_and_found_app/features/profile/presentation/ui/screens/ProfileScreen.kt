@@ -29,16 +29,20 @@ fun ProfilePage(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(color = Color.White)
     ) {
+
+    }
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(bottom = 63.dp) // space for bottom nav bar
         ) {
+
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp)
             ) {
+
                 Image(
                     painter = painterResource(id = R.drawable.rectangle175),
                     contentDescription = "Header background",
@@ -50,6 +54,7 @@ fun ProfilePage(modifier: Modifier = Modifier) {
                         .fillMaxSize(),
                     contentAlignment = Alignment.Center
                 ) {
+
                     Text(
                         text = "SETTINGS",
                         color = Color.White,
@@ -63,6 +68,7 @@ fun ProfilePage(modifier: Modifier = Modifier) {
                 modifier = Modifier
                     .padding(start = 56.dp, top = 29.dp)
             ) {
+
                 Image(
                     painter = painterResource(id = R.drawable.image3),
                     contentDescription = "Profile Picture",
@@ -77,6 +83,7 @@ fun ProfilePage(modifier: Modifier = Modifier) {
                         color = Color.Black,
                         style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Medium)
                     )
+
                     Text(
                         text = "deez@gmail.com",
                         color = Color.Black,
@@ -126,16 +133,19 @@ fun ProfilePage(modifier: Modifier = Modifier) {
         icon: @Composable () -> Unit,
         text: String
     ) {
+
         Box(
             modifier = Modifier
                 .padding(horizontal = 44.dp)
                 .fillMaxWidth()
                 .height(30.dp)
         ) {
+
             Row(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier.fillMaxSize()
             ) {
+
                 icon()
                 Spacer(modifier = Modifier.width(25.dp))
                 Text(
@@ -163,6 +173,7 @@ fun ProfilePage(modifier: Modifier = Modifier) {
                 .height(63.dp)
                 .background(Color(0xff356da0))
         ) {
+
             Row(
                 modifier = Modifier
                     .fillMaxSize()
@@ -170,29 +181,34 @@ fun ProfilePage(modifier: Modifier = Modifier) {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
+
                 Image(
                     painter = painterResource(id = R.drawable.materialsymbolslightsearch),
                     contentDescription = "Search",
                     colorFilter = ColorFilter.tint(Color.White),
                     modifier = Modifier.size(24.dp)
                 )
+
                 Image(
                     painter = painterResource(id = R.drawable.streamlinelostandfound),
                     contentDescription = "Lost and Found",
                     modifier = Modifier.size(24.dp)
                 )
+
                 Image(
                     painter = painterResource(id = R.drawable.materialsymbolslightadd),
                     contentDescription = "Add",
                     colorFilter = ColorFilter.tint(Color.White),
                     modifier = Modifier.size(24.dp)
                 )
+
                 Image(
                     painter = painterResource(id = R.drawable.materialsymbolslightchatoutline),
                     contentDescription = "Chat",
                     colorFilter = ColorFilter.tint(Color.White),
                     modifier = Modifier.size(24.dp)
                 )
+                
                 Image(
                     painter = painterResource(id = R.drawable.iconamoonprofilethin),
                     contentDescription = "Profile",

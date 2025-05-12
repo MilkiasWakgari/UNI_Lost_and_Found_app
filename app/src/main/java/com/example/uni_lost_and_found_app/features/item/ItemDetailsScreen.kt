@@ -34,12 +34,14 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
             .requiredHeight(height = 852.dp)
             .background(color = Color.White)
     ) {
+
         Image(
             painter = painterResource(id = R.drawable.rectangle175),
             contentDescription = "Rectangle 175",
             modifier = Modifier
                 .requiredWidth(width = 393.dp)
                 .requiredHeight(height = 100.dp))
+
         Icon(
             painter = painterResource(id = R.drawable.arrow_back),
             contentDescription = "arrow_back",
@@ -48,6 +50,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 31.dp,
                     y = 52.dp))
+
         Text(
             text = "ITEM DETAILS",
             color = Color.White,
@@ -68,6 +71,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 104.dp)
                 .requiredWidth(width = 387.dp)
                 .requiredHeight(height = 187.dp))
+
         Text(
             text = "ITEM NAME",
             color = Color.Black,
@@ -79,6 +83,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                 .offset(x = (-100).dp,
                     y = 354.dp)
                 .requiredWidth(width = 137.dp))
+
         Text(
             text = "FOUND AT",
             color = Color.Black,
@@ -91,6 +96,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 462.dp)
                 .requiredWidth(width = 101.dp)
                 .requiredHeight(height = 16.dp))
+
         Text(
             text = "FOUND ON",
             color = Color.Black,
@@ -103,6 +109,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 462.dp)
                 .requiredWidth(width = 101.dp)
                 .requiredHeight(height = 16.dp))
+
         Text(text = "7:01 AM",
             color = Color.Black,
             style = TextStyle(
@@ -115,6 +122,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 495.dp)
                 .requiredWidth(width = 94.dp)
                 .requiredHeight(height = 20.dp))
+
         Text(
             text = "04 APR 2025",
             color = Color.Black,
@@ -128,6 +136,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 495.dp)
                 .requiredWidth(width = 94.dp)
                 .requiredHeight(height = 20.dp))
+
         Text(
             text = "Description",
             color = Color.Black,
@@ -140,6 +149,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 551.dp)
                 .requiredWidth(width = 101.dp)
                 .requiredHeight(height = 16.dp))
+
         Text(
             text = "Location",
             color = Color.Black,
@@ -152,6 +162,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     y = 551.dp)
                 .requiredWidth(width = 101.dp)
                 .requiredHeight(height = 16.dp))
+
         Text(
             text = "NONE.",
             color = Color.Black,
@@ -163,6 +174,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                 .offset(x = (-97).dp,
                     y = 575.dp)
                 .requiredWidth(width = 137.dp))
+
         Text(
             text = "Lounge",
             color = Color.Black,
@@ -174,6 +186,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                 .offset(x = 77.dp,
                     y = 575.dp)
                 .requiredWidth(width = 137.dp))
+
         Box(
             modifier = Modifier
                 .align(alignment = Alignment.TopStart)
@@ -182,6 +195,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                 .requiredWidth(width = 207.dp)
                 .requiredHeight(height = 51.dp)
         ) {
+
             Box(
                 modifier = Modifier
                     .align(alignment = Alignment.TopCenter)
@@ -191,6 +205,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     .requiredHeight(height = 51.dp)
                     .clip(shape = RoundedCornerShape(15.dp))
                     .background(color = Color(0xff979797)))
+
             Text(
                 text = "CLAIM",
                 color = Color.Black,
@@ -202,6 +217,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     .offset(x = 0.dp,
                         y = (-0.5).dp))
         }
+
         Box(
             modifier = Modifier
                 .align(alignment = Alignment.TopStart)
@@ -210,6 +226,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                 .requiredWidth(width = 393.dp)
                 .requiredHeight(height = 63.dp)
         ) {
+
             Box(
                 modifier = Modifier
                     .requiredWidth(width = 393.dp).requiredHeight(height = 63.dp)
@@ -220,10 +237,12 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                     .requiredWidth(width = 393.dp)
                     .requiredHeight(height = 49.dp)
             ) {
+
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+
                     Image(
                         painter = painterResource(id = R.drawable.materialsymbolslightsearch),
                         contentDescription = "material-symbols-light:search",
@@ -233,6 +252,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                             .offset(x = 27.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(
                         painter = painterResource(id = R.drawable.iconamoonprofilethin),
                         contentDescription = "iconamoon:profile-thin",
@@ -241,6 +261,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                             .offset(x = 333.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(
                         painter = painterResource(id = R.drawable.materialsymbolslightchatoutline),
                         contentDescription = "material-symbols-light:chat-outline",
@@ -249,7 +270,8 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                             .align(alignment = Alignment.TopStart)
                             .offset(x = 254.dp,
                                 y = 23.dp)
-                            .requiredSize(size = 24.dp))
+                            .requiredSize(size = 24.dp)
+
                     Image(
                         painter = painterResource(id = R.drawable.materialsymbolslightadd),
                         contentDescription = "material-symbols-light:add",
@@ -259,6 +281,7 @@ fun ItemDetailsFound(modifier: Modifier = Modifier) {
                             .offset(x = 175.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(
                         painter = painterResource(id = R.drawable.streamlinelostandfound),
                         contentDescription = "streamline:lost-and-found",

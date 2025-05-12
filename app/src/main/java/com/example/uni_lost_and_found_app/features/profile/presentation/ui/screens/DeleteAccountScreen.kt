@@ -35,12 +35,14 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
             .requiredHeight(height = 852.dp)
             .background(color = Color.White)
     ) {
+
         Image(
             painter = painterResource(id = R.drawable.rectangle175),
             contentDescription = "Rectangle 175",
             modifier = Modifier
                 .requiredWidth(width = 393.dp)
                 .requiredHeight(height = 100.dp))
+
         Text(
             text = "DELETE ACCOUNT",
             color = Color.White,
@@ -51,6 +53,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .align(alignment = Alignment.TopCenter)
                 .offset(x = 0.dp,
                     y = 52.dp))
+
         Image(
             painter = painterResource(id = R.drawable.image3),
             contentDescription = "image 3",
@@ -59,6 +62,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .offset(x = 56.dp,
                     y = 129.dp)
                 .requiredSize(size = 100.dp))
+
         Text(
             text = "deez",
             color = Color.Black,
@@ -69,6 +73,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 177.dp,
                     y = 156.dp))
+
         Text(
             text = "deez@gmail.com",
             color = Color.Black,
@@ -79,6 +84,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .align(alignment = Alignment.TopStart)
                 .offset(x = 177.dp,
                     y = 196.dp))
+
         Text(
             text = "Are you sure you want to delete your account?",
             color = Color.Black,
@@ -90,6 +96,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .offset(x = 0.5.dp,
                     y = 299.dp)
                 .requiredWidth(width = 238.dp))
+
         TextButton(
             onClick = { /* Handle cancel action */ },
             colors = ButtonDefaults.buttonColors(containerColor = Color.Transparent),
@@ -99,6 +106,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .size(width = 176.dp, height = 39.dp)
                 .background(color = Color(0xFFD9D9D9), shape = MaterialTheme.shapes.small)
         ) {
+
             Text(
                 text = "CANCEL",
                 color = Color.Black,style = TextStyle(
@@ -120,6 +128,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .size(width = 176.dp, height = 39.dp)
                 .background(color = Color(0xFFD9D9D9), shape = MaterialTheme.shapes.small)
         ) {
+
             Text(
                 text = "Delete Account",
                 color = Color.Red,
@@ -141,21 +150,25 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                 .requiredWidth(width = 393.dp)
                 .requiredHeight(height = 63.dp)
         ) {
+
             Box(
                 modifier = Modifier
                     .requiredWidth(width = 393.dp)
                     .requiredHeight(height = 63.dp)
                     .background(color = Color(0xff356da0)))
+
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
                     .requiredWidth(width = 393.dp)
                     .requiredHeight(height = 49.dp)
+
             ) {
                 Box(
                     modifier = Modifier
                         .fillMaxSize()
                 ) {
+
                     Image(
                         painter = painterResource(id = R.drawable.materialsymbolslightsearch),
                         contentDescription = "material-symbols-light:search",
@@ -165,6 +178,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                             .offset(x = 27.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(
                         painter = painterResource(id = R.drawable.iconamoonprofilethin),
                         contentDescription = "iconamoon:profile-thin",
@@ -173,6 +187,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                             .offset(x = 333.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(
                         painter = painterResource(id = R.drawable.materialsymbolslightchatoutline),
                         contentDescription = "material-symbols-light:chat-outline",
@@ -182,6 +197,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                             .offset(x = 254.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(
                         painter = painterResource(id = R.drawable.materialsymbolslightadd),
                         contentDescription = "material-symbols-light:add",
@@ -191,6 +207,7 @@ fun DeleteAccount(modifier: Modifier = Modifier) {
                             .offset(x = 175.dp,
                                 y = 23.dp)
                             .requiredSize(size = 24.dp))
+
                     Image(painter = painterResource(id = R.drawable.streamlinelostandfound),
                         contentDescription = "streamline:lost-and-found",
                         modifier = Modifier
