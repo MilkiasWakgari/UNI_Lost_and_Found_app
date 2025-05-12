@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
         // Create Retrofit instance
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://192.168.8.46:5000/api/") // Use 10.0.2.2 for Android emulator to access localhost
+            .baseUrl("http://10.0.2.2:5000/api/") // Use 10.0.2.2 for Android emulator to access localhost
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
