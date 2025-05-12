@@ -7,7 +7,7 @@ import retrofit2.http.POST
 data class RegisterRequest(
     val email: String,
     val password: String,
-    val name: String
+    val fullName: String
 )
 
 data class LoginRequest(
@@ -30,12 +30,12 @@ data class ResetCodeResponse(
 )
 
 interface AuthApi {
-    @POST("signup")
+    @POST("auth/register")
     suspend fun register(@Body request: RegisterRequest): Response<Unit>
 
-    @POST("signin")
+    @POST("auth/login")
     suspend fun login(@Body request: LoginRequest): Response<LoginResponse>
 
-    @POST("forgot-password")
+    @POST("auth/forgot-password")
     suspend fun forgotPassword(@Body request: ForgotPasswordRequest): Response<ResetCodeResponse>
 }

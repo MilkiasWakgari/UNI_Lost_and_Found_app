@@ -166,7 +166,7 @@ fun SignUpScreen(
                             RegisterRequest(
                                 email = email,
                                 password = password,
-                                name = name
+                                fullName = name
                             )
                         )
                         
@@ -176,7 +176,7 @@ fun SignUpScreen(
                             when (response.code()) {
                                 409 -> errorMessage = "Email already exists"
                                 400 -> errorMessage = "Invalid input data"
-                                else -> errorMessage = "Registration failed. Please try again."
+                                else -> errorMessage = response.code().toString()
                             }
                         }
                     } catch (e: Exception) {

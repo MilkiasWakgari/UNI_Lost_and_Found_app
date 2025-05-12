@@ -10,7 +10,6 @@ export class ItemController {
   }
 
   async createItem(req: Request, res: Response, next?: NextFunction) {
-    console.log("Here...");
     try {
       if (!req.user) {
         return res.status(401).json({ message: "User not authenticated" });
@@ -19,6 +18,7 @@ export class ItemController {
         ...req.body,
         foundBy: req.user._id,
       };
+
       const item = await this.itemService.createItem(itemData);
       res.status(201).json(item);
     } catch (error: any) {

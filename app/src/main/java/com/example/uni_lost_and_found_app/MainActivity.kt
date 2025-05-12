@@ -28,6 +28,7 @@ import com.example.uni_lost_and_found_app.features.profile.presentation.viewmode
 import com.example.uni_lost_and_found_app.features.profile.data.repository.ProfileRepositoryImpl
 import com.example.uni_lost_and_found_app.features.profile.data.api.UserApiService
 import android.content.Context
+import com.example.uni_lost_and_found_app.features.auth.data.api.AuthApi
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +45,7 @@ class MainActivity : ComponentActivity() {
         val chatApiService = retrofit.create(ChatApiService::class.java)
         val adminApiService = retrofit.create(AdminApi::class.java)
         val userApiService = retrofit.create(UserApiService::class.java)
+        val authApiService = retrofit.create(AuthApi::class.java)
 
         // Create repositories
         val itemRepository = ItemRepository(itemApiService)
@@ -83,7 +85,8 @@ class MainActivity : ComponentActivity() {
                         chatRepository = chatRepository,
                         adminViewModel = adminViewModel,
                         token = token,
-                        profileViewModel = profileViewModel
+                        profileViewModel = profileViewModel,
+                        authApi= authApiService
                     )
                 }
             }
