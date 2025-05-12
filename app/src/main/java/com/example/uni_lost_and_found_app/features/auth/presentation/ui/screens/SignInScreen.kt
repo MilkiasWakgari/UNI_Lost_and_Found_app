@@ -44,9 +44,9 @@ import androidx.navigation.NavController
 
 @Composable
 fun SignInScreen(
-    onBack: () -> Unit = {},
-    onForgotPassword: () -> Unit = {},
-    onSignInSuccess: () -> Unit = {},
+    onBack: () -> Unit,
+    onForgotPassword: () -> Unit,
+    onSignInSuccess: () -> Unit,
     navController: NavController
 ) {
     var email by remember { mutableStateOf("") }

@@ -1,5 +1,6 @@
 package com.example.uni_lost_and_found_app.features.item.data.repository
 
+import android.annotation.SuppressLint
 import com.example.uni_lost_and_found_app.features.item.data.api.ItemApiService
 import com.example.uni_lost_and_found_app.features.item.data.model.Item as DataItem
 import com.example.uni_lost_and_found_app.features.item.data.model.ItemStatus as DataItemStatus
@@ -68,6 +69,7 @@ class ItemRepository(private val apiService: ItemApiService) {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     suspend fun createItem(
         title: String,
         description: String,
@@ -88,9 +90,11 @@ class ItemRepository(private val apiService: ItemApiService) {
             if (response.isSuccessful) {
                 Result.success(response.body()!!.toDomain())
             } else {
+
                 Result.failure(Exception("Failed to create item"))
             }
         } catch (e: Exception) {
+
             Result.failure(e)
         }
     }

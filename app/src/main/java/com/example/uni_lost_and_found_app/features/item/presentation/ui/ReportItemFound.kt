@@ -90,7 +90,7 @@ fun ReportItemFoundScreen(
                     value = category,
                     onValueChange = { },
                     label = { Text("Category") },
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.fillMaxWidth().menuAnchor(),
                     readOnly = true,
                     trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
                 )

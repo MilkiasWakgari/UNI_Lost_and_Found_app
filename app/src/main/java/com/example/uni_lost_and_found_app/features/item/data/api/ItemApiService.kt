@@ -18,7 +18,7 @@ interface ItemApiService {
     suspend fun getItemById(@Path("id") id: String): Response<Item>
 
     @POST("items")
-    suspend fun createItem(@Body item: Map<String, Any>): Response<Item>
+    suspend fun createItem(@Body item: Map<String, String>): Response<Item>
 
     @GET("items/found")
     suspend fun getItemsByFoundBy(): Response<List<Item>>
