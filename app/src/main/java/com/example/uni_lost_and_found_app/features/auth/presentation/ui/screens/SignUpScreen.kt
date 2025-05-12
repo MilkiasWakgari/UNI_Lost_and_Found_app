@@ -13,20 +13,29 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.ui.text.input.VisualTransformation
+import com.example.uni_lost_and_found_app.features.auth.data.api.AuthApi
+import com.example.uni_lost_and_found_app.features.auth.data.api.RegisterRequest
+import kotlinx.coroutines.launch
 
 @Composable
 fun SignUpScreen(
     onBack: () -> Unit,
-    onSignUpSuccess: () -> Unit
+    onSignUpSuccess: () -> Unit,
+    authApi: AuthApi
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
+    var name by remember { mutableStateOf("") }
     var showPassword by remember { mutableStateOf(false) }
     var showConfirmPassword by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
     var confirmPasswordError by remember { mutableStateOf<String?>(null) }
+    var nameError by remember { mutableStateOf<String?>(null) }
+    var isLoading by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier
@@ -49,6 +58,22 @@ fun SignUpScreen(
         )
 
         Spacer(modifier = Modifier.height(32.dp))
+
+        OutlinedTextField(
+            value = name,
+            onValueChange = {
+                name = it
+                nameError = if (it.length < 2) {
+                    "Name must be at least 2 characters"
+                } else null
+            },
+            label = { Text("Full Name") },
+            isError = nameError != null,
+            supportingText = { nameError?.let { Text(it) } },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
             value = email,
@@ -114,15 +139,57 @@ fun SignUpScreen(
             modifier = Modifier.fillMaxWidth()
         )
 
+        errorMessage?.let { error ->
+            Text(
+                text = error,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
+
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(
-            onClick = onSignUpSuccess,
+            onClick = {
+                scope.launch {
+                    try {
+                        isLoading = true
+                        errorMessage = null
+                        
+                        val response = authApi.register(
+                            RegisterRequest(
+                                email = email,
+                                password = password,
+                                name = name
+                            )
+                        )
+                        
+                        if (response.isSuccessful) {
+                            onSignUpSuccess()
+                        } else {
+                            errorMessage = "Registration failed. Please try again."
+                        }
+                    } catch (e: Exception) {
+                        errorMessage = "Network error: ${e.message}"
+                    } finally {
+                        isLoading = false
+                    }
+                }
+            },
             modifier = Modifier.fillMaxWidth(),
-            enabled = emailError == null && passwordError == null && confirmPasswordError == null &&
-                    email.isNotEmpty() && password.isNotEmpty() && confirmPassword.isNotEmpty()
+            enabled = !isLoading && emailError == null && passwordError == null && 
+                     confirmPasswordError == null && nameError == null &&
+                     email.isNotEmpty() && password.isNotEmpty() && 
+                     confirmPassword.isNotEmpty() && name.isNotEmpty()
         ) {
-            Text("Sign Up")
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier.size(24.dp),
+                    color = MaterialTheme.colorScheme.onPrimary
+                )
+            } else {
+                Text("Sign Up")
+            }
         }
     }
 }

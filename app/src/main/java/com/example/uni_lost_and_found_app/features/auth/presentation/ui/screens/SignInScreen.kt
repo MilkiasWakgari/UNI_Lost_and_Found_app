@@ -2,30 +2,11 @@ package com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.CheckCircle
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Text
-import androidx.compose.material3.TextFieldDefaults
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material.icons.filled.*
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -38,20 +19,29 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.uni_lost_and_found_app.R
 import com.example.uni_lost_and_found_app.core.presentation.components.SignInButton
-import androidx.navigation.NavController
+import com.example.uni_lost_and_found_app.features.auth.data.api.AuthApi
+import com.example.uni_lost_and_found_app.features.auth.data.api.LoginRequest
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SignInScreen(
     onBack: () -> Unit = {},
     onForgotPassword: () -> Unit = {},
     onSignInSuccess: () -> Unit = {},
-    navController: NavController
+    navController: NavController,
+    authApi: AuthApi
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
+    var isLoading by remember { mutableStateOf(false) }
+    var errorMessage by remember { mutableStateOf<String?>(null) }
+    val scope = rememberCoroutineScope()
+    
     val customFontFamily = FontFamily(
         Font(R.font.plus_jakarta_sans_medium)
     )
@@ -60,7 +50,7 @@ fun SignInScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.White)
+            .background(MaterialTheme.colorScheme.background)
             .padding(24.dp)
     ) {
         IconButton(
@@ -69,14 +59,15 @@ fun SignInScreen(
         ) {
             Icon(
                 imageVector = Icons.Default.ArrowBack,
-                contentDescription = "Back"
+                contentDescription = "Back",
+                tint = MaterialTheme.colorScheme.onBackground
             )
         }
         
         Spacer(Modifier.height(42.dp))
         Text(
             text = stringResource(id = R.string.sign_in_title),
-            color = colorResource(id = R.color.deep_sky_blue),
+            color = MaterialTheme.colorScheme.primary,
             fontWeight = FontWeight.Bold,
             fontSize = 42.sp,
             modifier = Modifier.padding(bottom = 4.dp),
@@ -87,7 +78,8 @@ fun SignInScreen(
             text = stringResource(id = R.string.sign_in_subtitle),
             fontSize = 16.sp,
             modifier = Modifier.padding(bottom = 24.dp),
-            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily)
+            style = MaterialTheme.typography.bodyMedium.copy(fontFamily = customFontFamily),
+            color = MaterialTheme.colorScheme.onBackground
         )
 
         OutlinedTextField(
@@ -95,7 +87,10 @@ fun SignInScreen(
             onValueChange = { email = it },
             label = { Text(stringResource(id = R.string.sign_in_email_hint)) },
             colors = TextFieldDefaults.colors(
-                disabledContainerColor = colorResource(id = R.color.white_smoke)
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface
             ),
             singleLine = true,
             trailingIcon = {
@@ -103,7 +98,7 @@ fun SignInScreen(
                     Icon(
                         imageVector = Icons.Default.CheckCircle,
                         contentDescription = "Valid",
-                        tint = colorResource(id = R.color.success)
+                        tint = MaterialTheme.colorScheme.primary
                     )
                 }
             },
@@ -117,19 +112,35 @@ fun SignInScreen(
             onValueChange = { password = it },
             label = { Text(stringResource(id = R.string.sign_in_password_hint)) },
             colors = TextFieldDefaults.colors(
-                disabledContainerColor = colorResource(id = R.color.white_smoke)
+                focusedContainerColor = MaterialTheme.colorScheme.surface,
+                unfocusedContainerColor = MaterialTheme.colorScheme.surface,
+                focusedTextColor = MaterialTheme.colorScheme.onSurface,
+                unfocusedTextColor = MaterialTheme.colorScheme.onSurface
             ),
             singleLine = true,
             visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
             trailingIcon = {
                 val icon = if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                    Icon(imageVector = icon, contentDescription = "Toggle Password Visibility")
+                    Icon(
+                        imageVector = icon,
+                        contentDescription = "Toggle Password Visibility",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
                 }
             },
             modifier = Modifier
                 .fillMaxWidth()
         )
+
+        errorMessage?.let { error ->
+            Text(
+                text = error,
+                color = MaterialTheme.colorScheme.error,
+                modifier = Modifier.padding(vertical = 8.dp)
+            )
+        }
+
         Spacer(Modifier.height(16.dp))
         Row(
             modifier = Modifier
@@ -139,19 +150,38 @@ fun SignInScreen(
         ) {
             Text(
                 text = stringResource(id = R.string.forgot_password),
-                color = colorResource(id = R.color.deep_sky_blue),
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.clickable(onClick = onForgotPassword)
             )
         }
         Spacer(Modifier.height(24.dp))
         SignInButton(
             text = stringResource(id = R.string.sign_in),
+            isLoading = isLoading,
             onClick = {
-                // Simulate login and check for admin role
-                if (email == "admin@example.com") {
-                    navController.navigate("admin_dashboard")
-                } else {
-                    onSignInSuccess()
+                scope.launch {
+                    try {
+                        isLoading = true
+                        errorMessage = null
+                        
+                        val response = authApi.login(LoginRequest(email, password))
+                        if (response.isSuccessful) {
+                            response.body()?.let { loginResponse ->
+                                // Store the token and user info
+                                if (loginResponse.role == "ADMIN") {
+                                    navController.navigate("admin_dashboard")
+                                } else {
+                                    onSignInSuccess()
+                                }
+                            }
+                        } else {
+                            errorMessage = "Invalid email or password"
+                        }
+                    } catch (e: Exception) {
+                        errorMessage = "Network error: ${e.message}"
+                    } finally {
+                        isLoading = false
+                    }
                 }
             }
         )
