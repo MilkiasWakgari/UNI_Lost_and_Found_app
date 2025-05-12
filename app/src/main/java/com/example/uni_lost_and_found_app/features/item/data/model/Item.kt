@@ -10,12 +10,12 @@ data class Item(
     val location: String = "",
     val date: Date = Date(),
     val imageUrl: String = "",
-    val status: ItemStatus = ItemStatus.LOST,
+    val status: ItemStatus = ItemStatus.lost,
     val userId: String = ""
 )
 
 enum class ItemStatus {
-    LOST,
-    FOUND,
-    CLAIMED
+    lost,
+    found,
+    claimed
 } 

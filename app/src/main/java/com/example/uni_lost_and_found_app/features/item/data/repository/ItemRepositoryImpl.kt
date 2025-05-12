@@ -22,9 +22,9 @@ class ItemRepository(private val apiService: ItemApiService) {
             date = date,
             imageUrl = imageUrl,
             status = when (status) {
-                DataItemStatus.LOST -> DomainItemStatus.LOST
-                DataItemStatus.FOUND -> DomainItemStatus.FOUND
-                DataItemStatus.CLAIMED -> DomainItemStatus.CLAIMED
+                DataItemStatus.lost -> DomainItemStatus.LOST
+                DataItemStatus.found -> DomainItemStatus.FOUND
+                DataItemStatus.claimed -> DomainItemStatus.CLAIMED
             },
             userId = userId
         )
@@ -84,7 +84,9 @@ class ItemRepository(private val apiService: ItemApiService) {
                 "location" to location,
                 "category" to category,
                 "timeFound" to java.text.SimpleDateFormat("HH:mm").format(Date()),
-                "imageUrl" to (imageUrl ?: "")
+                "imageUrl" to (imageUrl ?: ""),
+                "status" to "found"
+
             )
             val response = apiService.createItem(itemData)
             if (response.isSuccessful) {
