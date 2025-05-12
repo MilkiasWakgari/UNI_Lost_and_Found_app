@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.uni_lost_and_found_app.features.admin.presentation.ui.screens.AdminDashboardScreen
 import com.example.uni_lost_and_found_app.features.admin.presentation.viewmodel.AdminViewModel
+import com.example.uni_lost_and_found_app.features.auth.data.api.AuthApi
 import com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens.EnterCodeScreen
 import com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens.ForgotPasswordScreen
 import com.example.uni_lost_and_found_app.features.auth.presentation.ui.screens.SignInScreen
@@ -37,7 +38,8 @@ fun AppNavigation(
     chatRepository: ChatRepository,
     adminViewModel: AdminViewModel,
     token: String,
-    profileViewModel: ProfileViewModel
+    profileViewModel: ProfileViewModel,
+    authApi: AuthApi
 ) {
     NavHost(
         navController = navController,
@@ -52,7 +54,8 @@ fun AppNavigation(
         composable("signup") {
             SignUpScreen(
                 onBack = { navController.popBackStack() },
-                onSignUpSuccess = { navController.navigate("signin") }
+                onSignUpSuccess = { navController.navigate("signin") },
+                authApi = authApi
             )
         }
         composable("signin") {
@@ -60,7 +63,8 @@ fun AppNavigation(
                 onBack = { navController.popBackStack() },
                 onForgotPassword = { navController.navigate("forgot_password") },
                 onSignInSuccess = { navController.navigate("items_found") },
-                navController = navController
+                navController = navController,
+                authApi = authApi
             )
         }
         composable("forgot_password") {

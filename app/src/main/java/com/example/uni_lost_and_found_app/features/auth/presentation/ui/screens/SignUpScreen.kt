@@ -98,6 +98,12 @@ fun SignUpScreen(
                 passwordError = if (it.length < 6) {
                     "Password must be at least 6 characters"
                 } else null
+                // Update confirm password error if passwords don't match
+                if (confirmPassword.isNotEmpty()) {
+                    confirmPasswordError = if (it != confirmPassword) {
+                        "Passwords do not match"
+                    } else null
+                }
             },
             label = { Text("Password") },
             visualTransformation = if (showPassword) VisualTransformation.None else PasswordVisualTransformation(),
@@ -167,7 +173,11 @@ fun SignUpScreen(
                         if (response.isSuccessful) {
                             onSignUpSuccess()
                         } else {
-                            errorMessage = "Registration failed. Please try again."
+                            when (response.code()) {
+                                409 -> errorMessage = "Email already exists"
+                                400 -> errorMessage = "Invalid input data"
+                                else -> errorMessage = "Registration failed. Please try again."
+                            }
                         }
                     } catch (e: Exception) {
                         errorMessage = "Network error: ${e.message}"
